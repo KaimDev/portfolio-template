@@ -1,0 +1,117 @@
+---
+
+---
+
+<nav>
+    <div class="nav-elements-container">
+        <a class="home-path" href="/">KaimDev</a>
+
+        <ul id="nav-urls">
+            <li><a href="/works">Works</a></li>
+            <li><a href="https://github.com/kaimdev">Github</a></li>
+            <li><a href="https://www.linkedin.com/in/kaimdev/">Linkedin</a></li>
+        </ul>
+
+        <div class="toggle-icon-container">
+            <img id="toggle-icon" src="/moon.svg" alt="moon" width="16px" height="16ox" />
+        </div>
+    </div>
+</nav>
+
+<style>
+    nav {
+        background-color: var(--color-secondary);
+        height: 45px;
+        width: 100%;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        border-bottom: 1px solid var(--bottom-line-color);
+    }
+
+    .nav-elements-container {
+        margin: auto;
+        display: flex;
+        height: 100%;
+        max-width: 800px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+    }
+
+    .home-path {
+        font-weight: bold;
+    }
+
+    #nav-urls {
+        font-size: 13px;
+        display: flex;
+        list-style-type: none;
+        width: 100%;
+        justify-content: center;
+        //margin: 0 40px;
+        gap: 20px;
+    }
+
+    #nav-urls li:hover {
+        text-decoration: underline;
+    }
+
+    .toggle-icon-container {
+        background-color: var(--button-toggle-color);
+        height: 32px;
+        width: 42px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+    }
+
+    .toggle-icon-container:hover {
+        cursor: pointer;
+    }
+
+    .slideInUp {
+        animation: slideInUp 0.5s;
+    }
+
+    @keyframes slideInUp {
+        0% {
+            transform: translateY(0);
+        }
+
+        100% {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+    }
+
+</style>
+
+<script>
+    let toggleIconContainer = document.querySelector('.toggle-icon-container');
+    let toggleIcon = document.getElementById('toggle-icon')
+
+    toggleIconContainer.addEventListener('click', () =>
+    {
+        toggleIconContainer.classList.add('slideInUp');
+
+        setTimeout(() =>
+        {
+            toggleIconContainer.classList.remove('slideInUp');
+        }, 500);
+
+        if (toggleIcon.getAttribute('src') === '/moon.svg')
+        {
+            toggleIcon.setAttribute('src', '/sun.svg');
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        else
+        {
+            toggleIcon.setAttribute('src', '/moon.svg');
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+
+    });
+</script>

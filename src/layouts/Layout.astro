@@ -1,0 +1,91 @@
+---
+import Footer from "../components/footer.astro";
+interface Props
+{
+    title: string;
+}
+
+const { title } = Astro.props;
+
+import "@fontsource/jetbrains-mono";
+import "@fontsource/jetbrains-mono/400.css";
+import "@fontsource/jetbrains-mono/400-italic.css";
+
+import Navbar from "../components/navbar.astro";
+
+import { ViewTransitions } from 'astro:transitions';
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+</head>
+<header>
+    <Navbar />
+</header>
+<body>
+<div class="slot-container">
+    <slot />
+
+    <footer>
+        <Footer />
+    </footer>
+</div>
+</body>
+</html>
+<style is:global>
+    :root {
+        --button-color: #7f85f6;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        font-family: "JetBrains Mono", monospace;
+        background-color: var(--color-primary);
+        color: var(--text-color);
+    }
+
+    [data-theme="light"] {
+        --color-primary: #DAD2F9;
+        --color-secondary: #b9b6ea;
+        --text-color: #212020;
+        --button-toggle-color: #9044f8;
+        transition: 0.5s;
+    }
+
+    [data-theme="dark"] {
+        --color-primary: #1f1f23;
+        --color-secondary: #202023;
+        --text-color: #AAA;
+        --button-toggle-color: #ece340;
+        --bottom-line-color: #4d4d4d;
+        transition: 0.5s;
+    }
+
+    a {
+        color: var(--text-color);
+        text-decoration: none;
+    }
+
+    .slot-container {
+        width: 400px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+    footer {
+        margin: 50px;
+    }
+</style>
