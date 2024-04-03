@@ -1,15 +1,14 @@
 ---
-
 ---
 
 <nav>
     <div class="nav-elements-container">
-        <a class="home-path" href="/">KaimDev</a>
+        <a class="home-path nav-item" href="/">KaimDev</a>
 
         <ul id="nav-urls">
-            <li><a href="/works">Works</a></li>
-            <li><a href="https://github.com/kaimdev">Github</a></li>
-            <li><a href="https://www.linkedin.com/in/kaimdev/">Linkedin</a></li>
+            <li><a class="nav-item" href="/works">Works</a></li>
+            <li><a class="nav-item" href="https://github.com/kaimdev">Github</a></li>
+            <li><a class="nav-item" href="https://www.linkedin.com/in/kaimdev/">Linkedin</a></li>
         </ul>
 
         <div class="toggle-icon-container">
@@ -49,7 +48,6 @@
         list-style-type: none;
         width: 100%;
         justify-content: center;
-        //margin: 0 40px;
         gap: 20px;
     }
 
@@ -90,28 +88,48 @@
 </style>
 
 <script>
+    import { LoadTheme } from "../scripts/LoadTheme";
+    import { SaveTheme } from "../scripts/SaveTheme";
+
     let toggleIconContainer = document.querySelector('.toggle-icon-container');
     let toggleIcon = document.getElementById('toggle-icon')
 
+    let navItems = document.querySelectorAll('.nav-item');
+    let theme= ''
+
     toggleIconContainer.addEventListener('click', () =>
     {
+        theme = localStorage.getItem('theme');
         toggleIconContainer.classList.add('slideInUp');
+
+        document.documentElement.classList.add('transition');
 
         setTimeout(() =>
         {
             toggleIconContainer.classList.remove('slideInUp');
         }, 500);
 
-        if (toggleIcon.getAttribute('src') === '/moon.svg')
+        if (theme === 'light')
         {
+            theme = 'dark';
             toggleIcon.setAttribute('src', '/sun.svg');
-            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
         }
         else
         {
+            theme = 'light';
             toggleIcon.setAttribute('src', '/moon.svg');
-            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.setAttribute('data-theme', theme);
         }
 
+        SaveTheme(theme);
+    });
+
+    navItems.forEach(item =>
+    {
+        item.addEventListener('click', () =>
+        {
+            LoadTheme();
+        });
     });
 </script>
